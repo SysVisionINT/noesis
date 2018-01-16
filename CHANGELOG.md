@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.2
+
+Sysvision, Lda.
+
+* `noesis_polyline`: Modified to accept a precision parameter in encode/decode. 
+
 ## 0.3.1
 
 [Documentation](http://noesis.nifoc.pw/0.3.1/)

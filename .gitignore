@@ -11,3 +11,7 @@ erl_crash.dump
 *.plt
 *.trace
 elvis
+/_build/
+/rebar.lock
+/.settings/
+/.project
