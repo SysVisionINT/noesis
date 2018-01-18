@@ -70,12 +70,12 @@ decode(Line, Precision) ->
 -spec encode_acc(noesis_geometry:path(), noesis_geometry:latitude(), noesis_geometry:longitude(), integer(), iolist()) -> line().
 encode_acc([], _PLat, _PLng, _Factor, Acc) ->
 	iolist_to_binary(lists:reverse(Acc));
-encode_acc([{Lng, Lat}|Rest], PLat, PLng, Factor, Acc) ->
-	LatE5 = round(Lat * Factor),
-	LngE5 = round(Lng * Factor),
-	EncodedLat = encode_part(encode_sign(LatE5 - PLat), []),
-	EncodedLng = encode_part(encode_sign(LngE5 - PLng), []),
-	encode_acc(Rest, LatE5, LngE5, Factor, [[EncodedLat, EncodedLng] | Acc]).
+encode_acc([{Lat, Lng}|Rest], PLat, PLng, Factor, Acc) ->
+	LatEX = round(Lat * Factor),
+	LngEX = round(Lng * Factor),
+	EncodedLat = encode_part(encode_sign(LatEX - PLat), []),
+	EncodedLng = encode_part(encode_sign(LngEX - PLng), []),
+	encode_acc(Rest, LatEX, LngEX, Factor, [[EncodedLat, EncodedLng] | Acc]).
 
 -spec encode_sign(integer()) -> integer().
 encode_sign(Num) when Num < 0 ->
@@ -98,7 +98,7 @@ decode_acc(Line, Lat, Lng, Factor, Acc) ->
 	Lat2 = Lat + DLat,
 	{DLng, Rest2} = decode_part(Rest, 32, 0, 0),
 	Lng2 = Lng + DLng,
-	decode_acc(Rest2, Lat2, Lng2, Factor, [{Lng2 / Factor, Lat2 / Factor} | Acc]).
+	decode_acc(Rest2, Lat2, Lng2, Factor, [{Lat2 / Factor, Lng2 / Factor} | Acc]).
 
 -spec decode_part(line(), non_neg_integer(), non_neg_integer(), integer()) -> {integer(), line()}.
 decode_part(Line, B, _Shift, Result) when B < 32 ->
