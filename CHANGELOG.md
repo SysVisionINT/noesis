@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.3
+
+Sysvision, Lda.
+
+* `noesis_polyline`, `noesis_geometry`: Changed coordinates order to {lat, lng}. 
+
 ## 0.3.2
 
 Sysvision, Lda.
